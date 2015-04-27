@@ -1,0 +1,18 @@
+<launch>
+  <master auto="start"/>
+
+  <!-- Run the map server -->
+  <!-- <node name="map_server" pkg="map_server" type="map_server" args="./map.pgm 0.025000"/> -->
+
+  <!--- Run AMCL -->
+  <include file="$(env HOME)/workspace/src/navigation-groovy-devel/amcl/examples/amcl_omni.launch" />
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <param name="controller_frequency" value="5.0" />
+    <rosparam file="$(env HOME)/workspace/src/p2os-master/p2os_launch/launch/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(env HOME)/workspace/src/p2os-master/p2os_launch/launch/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(env HOME)/workspace/src/p2os-master/p2os_launch/launch/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(env HOME)/workspace/src/p2os-master/p2os_launch/launch/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(env HOME)/workspace/src/p2os-master/p2os_launch/launch/base_local_planner_params.yaml" command="load" />
+  </node>
+</launch>

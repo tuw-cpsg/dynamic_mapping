@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/sbrugger/workspace/src/laser_drivers/LMS1xx/src/setConfig.cpp
+iostream
+-
+boost/lexical_cast.hpp
+-
+LMS1xx.h
+-
+
+/home/sbrugger/workspace/src/laser_drivers/libLMS1xx/libLMS1xx/include/LMS1xx.h
+string
+-
+stdint.h
+-
+

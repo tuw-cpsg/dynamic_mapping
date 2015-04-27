@@ -1,0 +1,113 @@
+user: sbrugger pwd wie TU
+
+roboter soll wireless hotspot machen
+(hosted, hostpd,...?)
+
+Von patro aus hats noch nicht geklappt
+ROS_MASTER_URI -> als param oder env variable
+ip: 128.130.39.49
+
+---- von patro aus steuern ---
+roscore nicht starten
+--PATRO--:
+export ROS_MASTER_URI=http://dagobert:11311/
+rosrun p3at keyboard_control
+
+--DAGOBERT--:
+adhoc netzwerk erstellen (p3at)
+andere ip addresse im /etc/hosts file eintragen
+export ROS_MASTER_URI=http://dagobert:11311/
+roscore
+rosrun ROSARIA RosAria _port:=/dev/ttyS0
+rosrun p3at security
+--- end von patro aus steuern ---
+
+
+
+/usr/local/Aria/params
+
+rostopic list
+
+rostopic echo /RosAria/bumper_state
+
+rostopic echo /RosAria/sonar
+abstand ist y-Wert (ca in m)
+
+
+rosmsg type /RosAria/sonar
+
+
+
+
+
+--- CAMERA Canon vc-c50i---
+sudo apt-get install libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
+
+Download gscam from ros.org
+cd workspace/src/gscam
+rosmake gscam (ca. 60 sec)
+
+
+
+--- LASER ---
+type: lms1xx (lms100)
+port: 192.168.0.1
+
+Download laser drivers from ros.org
+cd workspace/src/laser_drivers
+rosmake LMS1xx -- in src file ip-address geändert 
+
+rosrun LMS1xx LMS100
+
+
+---SLAM gmapping---
+
+cd workspace/src/slam_gmapping/gmapping
+rosmake gmapping (ca. 100 sekunden)
+internet connection ist notwendig! (md5sum check)
+
+only works on robot! not on laptop :(
+
+
+
+--- mobilerobots ----
+serial: 	GMC_4089
+user: 		vienna4
+password:	ab7-2+B!
+
+--p2os, navigationstack---
+https://sites.google.com/site/slamnavigation/
+
+
+--- navigationstack ---
+download zip from here: https://github.com/ros-planning/navigation 
+rosmake navigation
+
+start:
+AM ROBOTER:
+sudo ./accessPoint.sh
+./start_navigation (verwendet security_navigation module)
+AM LAPTOP (sonst geht sich control_frequency nicht aus, pc zu schwach):
+roslaunch navigation-groovy-devel/move_base.launch
+rosrun rviz rviz navigation.rviz
+
+relevante configfiles:
+navigation-groovy-devel/move_base.launch
+p2os-master/p2os_launch/launch/global_costmap_params.yaml
+p2os-master/p2os_launch/launch/local_costmap_params.yaml
+...
+
+-- virtual machine (VM)--
+netzwerkadapter muss auf "Netwerkbrücke" eingestellt werden
+ROS_IP muss in VM auf aktuelle IP Adresse gesetzt werden (10.42.0.19)
+
+
+--- accesspoint password ---
+p3at2013
+http://nims11.wordpress.com/2012/04/27/hostapd-the-linux-way-to-create-virtual-wifi-access-point/
+
+http://www.usa.canon.com/cusa/support/consumer/security_video_solutions/analog_pan_tilt_zoom_cameras/vc_c50i_vc_c50ir#DriversAndSoftware
+
+--- docu ---
+class list
+http://mirror.umd.edu/roswiki/doc/diamondback/api/gmapping/html/annotated.html

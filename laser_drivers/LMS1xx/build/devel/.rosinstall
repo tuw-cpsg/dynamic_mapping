@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/sbrugger/workspace/src/laser_drivers/LMS1xx/build/devel/setup.sh

@@ -1,0 +1,18 @@
+<package>
+  <description brief="pyoj - use iPhone/iPod Touch as a joystick">
+
+     <tt>pyoj</tt> is a ROS joystick node, that publishes data from the
+     <a href="http://code.google.com/p/accelerometer-simulator/">accelerometer-simulator</a>.
+     It is written in Python.
+
+  </description>
+  <author>Srećko Jurić-Kavelj</author>
+  <license>GPLv3</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/pyoj</url>
+  <depend package="rospy"/>
+  <depend package="joy"/>
+
+</package>
+
+

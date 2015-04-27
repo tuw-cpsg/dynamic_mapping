@@ -1,0 +1,17 @@
+<package>
+  <description brief="Get anaglyph image form a stereo camera">
+
+     <tt>anaglyph</tt> combines left and right stereo camera images to produce a single stereoscopic image.
+
+  </description>
+  <author>Srećko Jurić-Kavelj</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/anaglyph</url>
+  <depend package="sensor_msgs"/>
+  <depend package="stereo_msgs"/>
+  <depend package="image_transport"/>
+
+</package>
+
+

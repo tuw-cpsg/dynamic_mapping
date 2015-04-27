@@ -1,0 +1,15 @@
+# Get the necessary data to export the map
+int8 init
+---
+# The dynamic map topic
+dynamic_mapping/DynamicGrid dynamic_map
+
+# The sign of the deviation of the probability function over time
+int8[] dynamic_trend
+
+# The time, which pasted by since the last change of a pixel
+uint32[] dynamic_time
+
+# The reference value for dynamic area colorsiation
+# This value will be the deepest red, all values above will also be deep red.
+uint32 dynamic_time_max

@@ -1,0 +1,5 @@
+von https://svn.openslam.org/data/svn/gmapping/trunk heruntergeladen
+sollte von slam_gmapping ROS modul verwendet werden (ist dort aber bereits vorcompiliert)
+
+BUILD
+./configure; . ./setlibpath; make; 

@@ -1,0 +1,62 @@
+#!/bin/bash
+
+export ROS_IP=10.42.0.19
+export ROS_MASTER_URI=http://dagobert:11311/
+
+echo "-----------------------------------------------------------"
+echo "-                    Starting rviz                        -"
+echo "-----------------------------------------------------------"
+rosrun rviz rviz &
+PID1="$!"
+sleep 1
+
+f_flag= 
+f_val=
+
+while getopts ":f:nk" opt; do
+	case $opt in
+		f)
+			f_flag=1
+			f_val="$OPTARG"
+			;;
+		n)	
+			n_flag=1
+			;;
+		k)
+			k_flag=1
+			;;
+	esac
+done		
+
+if [ ! -z "$f_flag" ]; then			
+			echo "-----------------------------------------------------------"
+			echo "-        Starting dynamic map import from file            -"
+			echo "-----------------------------------------------------------"
+
+else
+			echo "-----------------------------------------------------------"
+			echo "-        Starting dynamic map without file import         -"
+			echo "-----------------------------------------------------------"
+fi
+
+rosrun dynamic_mapping main _laser_map:=0 _file_name:="$f_val" &
+PID2="$!"
+sleep 1
+
+if [ ! -z "$n_flag" ]; then			
+			echo "-----------------------------------------------------------"
+			echo "-               Starting navigation stack                 -"
+			echo "-----------------------------------------------------------"
+			roslaunch navigation-groovy-devel/move_base.launch 
+			PID3="$!"
+else
+			echo "-----------------------------------------------------------"
+			echo "-               Starting keyboard control                 -"
+			echo "-----------------------------------------------------------"
+			rosrun p3at keyboard_control
+			PID3="$!"
+fi
+			
+trap "kill $PID1 $PID2 $PID3" exit INT TERM
+
+wait
